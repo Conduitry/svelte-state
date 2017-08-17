@@ -24,31 +24,39 @@ export let subscribe = listener => {
 	}
 }
 
-export let combineReducers = reducers => (state, action) => {
+export let combineReducers = reducers => (state = {}, action) => {
 	let newState = {}
 	for (let key in reducers) {
-		newState[key] = reducers[key](state && state[key], action)
+		newState[key] = reducers[key](state[key], action)
 	}
 	return newState
 }
 
-export function connect(component, stateToData) {
-	update(component, stateToData)
-	component.on('destroy', subscribe(() => update(component, stateToData)))
-}
-
-function update(component, stateToData) {
-	let oldData = component.get()
-	let newData = stateToData(state)
-	let changed = false
-	let diff = {}
-	for (let key in newData) {
-		if (oldData[key] !== newData[key]) {
-			changed = true
-			diff[key] = newData[key]
+export let connect = (component, stateToData, dataToAction) => {
+	if (stateToData) {
+		let update = () => {
+			let newData = stateToData(state)
+			if (newData) {
+				let oldData = component.get()
+				let changed = false
+				let diff = {}
+				for (let key in newData) {
+					if (oldData[key] !== newData[key]) {
+						changed = true
+						diff[key] = newData[key]
+					}
+				}
+				if (changed) {
+					component.set(diff)
+				}
+			}
 		}
+		update()
+		component.on('destroy', subscribe(update))
 	}
-	if (changed) {
-		component.set(diff)
+	if (dataToAction) {
+		for (let key in dataToAction) {
+			component.observe(key, value => dispatch(dataToAction[key](value)), { init: false })
+		}
 	}
 }
