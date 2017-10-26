@@ -1,9 +1,7 @@
 let reducer = state => state
 let listeners = new Set()
 
-let state
-
-export let getState = () => state
+export let state
 
 export let setReducer = (newReducer, preloadedState = newReducer()) => {
 	reducer = newReducer
