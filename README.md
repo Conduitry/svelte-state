@@ -1,4 +1,4 @@
-# svelte-state
+# Svelte-State
 
 A very small, simple library for managing state in a [Svelte](//svelte.technology) app. Steals the most useful bits from `redux` and `react-redux` and presents them as a single library with no dependencies.
 
@@ -43,6 +43,10 @@ Connects a `component` to the state. Both `stateToData` and `dataToAction` are o
 This should be called in the `oncreate` hook of a Svelte component. It will automatically unsubscribe from state changes when the component is destroyed.
 
 ## Usage
+
+Combine reducers for parts of the state into the main, central reducer with `combineReducers`. Use `setReducer` assign the top-level reducer to the store.
+
+Dispatch actions with `dispatch`, and manually subscribe to state changes with `subscribe`. Access the current state with `state`.
 
 Call `connect` appropriately in the `oncreate` hook of your Svelte component. The first argument, `component`, should be `this`. Pass a `stateToData` if you want to automatically update component state when global state changes. Pass a `dataToAction` if you want to automatically dispatch actions when certain component state changes occur.
 
