@@ -1,6 +1,6 @@
 # Svelte-State
 
-A very small, simple library for managing state in a [Svelte](//svelte.technology) app. Steals the most useful bits from `redux` and `react-redux` and presents them as a single library with no dependencies.
+A very small, simple library for managing state in a [Svelte](https://svelte.technology) app. Steals the most useful bits from `redux` and `react-redux` and presents them as a single library with no dependencies.
 
 **Disclaimer:** Probably all that extra code in Redux is there for a reason, and probably one day I'll regret not just using the real Redux library.
 
@@ -54,4 +54,4 @@ Call `connect` appropriately in the `oncreate` hook of your Svelte component. Th
 
 Copyright (c) 2017 Conduitry
 
-- [MIT](https://github.com/Conduitry/svelte-state/blob/master/LICENSE)
+- [MIT](LICENSE)
